@@ -145,14 +145,14 @@ def show_map(tab, board, allmode = False, x = 16, y = 16):
                 print("-", end = " ")
         print("")
 
-def main_loop(board):
+def main_loop(board, x, y):
     global bombs_left
-    sim_board = gen_empty_tab()
+    sim_board = gen_empty_tab(x, y)
     while True:
         if bombs_left == 0:
             print("Wygrana!")
             break
-        
+
         print("Pozostało {} bomb.".format(bombs_left))
         what_to_do = int(input("Co zrobic? [0]Oznacz, [1]Pokaz "))
         
@@ -168,7 +168,7 @@ def main_loop(board):
             if board[tmp][tmp_num] == -1:
                 bombs_left -= 1
                 sim_board[tmp][tmp_num] = 2 #flagged
-            show_map(sim_board, board)
+            show_map(sim_board, board, False, x, y)
         if what_to_do == 1:    
             if board[tmp][tmp_num] == -1:
                 sim_board[tmp][tmp_num] = 1
@@ -177,6 +177,6 @@ def main_loop(board):
                 break
             else:
                 sim_board[tmp][tmp_num] = 1 #marked as read
-                show_map(sim_board, board)
+                show_map(sim_board, board, False, x, y)
             
-main_loop(generate_board())
+main_loop(generate_board(8, 8), 8, 8)
